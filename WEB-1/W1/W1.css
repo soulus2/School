@@ -1,0 +1,13 @@
+body{
+  background-color: #000;
+  color: #fff;
+}
+
+.blue{
+  transform: scaleX(-1);
+}
+
+.field{
+  padding-left: 40px;
+}
+
