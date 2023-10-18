@@ -1,0 +1,20 @@
+body{
+	background-color: #000;
+	color: #fff;
+}
+.frame{
+	border: 4px solid #fff;
+	border-radius: 25pt;
+	text-align: center; 
+	align-content: center;
+}
+.ttle{
+	font-family: OCR A Std, Monospace;
+}
+.script{
+	font-family: OCR A Std, Monospace;
+	font-size: 12px;
+}
+.movie{
+	width:;
+}
