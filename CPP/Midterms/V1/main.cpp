@@ -19,7 +19,7 @@ void t2(){
 }
 void t3(){
   cout<<"T3:\n";
-  int n=14;
+  int n=15;
   int arr[n];
   srand(time(0));
   cout<<"  Current array:\n";
