@@ -10,81 +10,52 @@ function putBlock(i,j,id) {
 function rand(max){
   return Math.floor(Math.random() * max); 
 }
-function colorToNumber(col) {
-  switch (col) {
-    case "r": return 0;
-    case "g": return 1;
-    case "b": return 2;
-    case "y": return 3;
-    default:
-      return -1;
-  }
-}
-function suffle() {
 
-  document.getElementById("grid").innerHTML='';
-  let teams=[];
-  for(let i=0;i<TEAMS.length;i++){
-    let team=[...TEAMS[i]];
-    teams.push(team);
-  }
-  pairs=[];
-  console.log(TEAMS);
-  console.log(teams);
-  for(let i=0; i<teams.length;i++){
-    for(let j=0; j<teams[i].length;j++){
-      let currentBlock=teams[i][j];
+function group() {
+  let teams = TEAMS;
+  let pairs=[];
 
-      if(currentBlock==0) continue;
+    let rl =[];
+  for(let i=0;i<teams.length;i++){
+    if (teams[i]==0) continue;
+    let ri=0;
+    let test =true;
+    // console.log(teams.length);
 
-      let ri, iterations=0;
-      do {
-        ri=rand(teams.length);
-        if(teams[ri][j] && teams[ri][j][0]!=currentBlock[0] && teams[ri][j]!=0){
-          break;
-        }
-        
-        iterations++;
-      } while (iterations<1000);
+    while (test) {
+      ri=rand(teams.length);
+      let skip=false;
+      for(let r=0;r<rl.length;r++){
+        if (ri==rl[r]) {skip=true; break;}
+      }
+      if (skip) continue;
+      rl.push(""+ri);
       
-      pairs.push([currentBlock, teams[ri][j]]);
-      teams[i][j]=0;
-      teams[ri][j]=0;
+      console.log(ri);
+      console.log(teams[ri][0]);
+      // break;
+      console.log(rl);
 
-      // console.log(pairs);
+      pairs.push([teams[i],teams[ri]]);
+      teams[ri]=0;
+      teams[i]=0;
+      break;
+      
     }
   }
-
-
-  for(let i=0;i<pairs.length;i++){
-    document.getElementById("grid").innerHTML+=`<div class="pairCont grid" id="pairCont${i}"></div>`;
-    let n1=colorToNumber(pairs[i][0][0]);
-    let n2=colorToNumber(pairs[i][1][0]);
-    let i1=pairs[i][0][1];
-    let i2=pairs[i][1][1];
-    putBlock(n1,i1,`pairCont${i}`);
-    putBlock(n2,i2,`pairCont${i}`);
-  }
-  for(let p=0;p<pairs.length;p++){
-    let ri=rand(TEAMS.length);
-    let rj=rand(TEAMS[ri].length);
-    TEAMS[ri].splice(rj,1);
-    
-  } 
   
+  // console.log(pairs);
 }
 
 function makeGrid() {
-  if(!isStart){suffle(); return;}
+  if(!isStart){group(); return;}
   isStart=false;
   document.getElementById("mainButton").innerHTML="next stage";
   for (let i=0;i<4;i++){
-    let currentTeam=[];
     for(let j=0;j<4;j++){
-      currentTeam.push(colors[i]+""+j);
       putBlock(i,j,"grid");
+      TEAMS.push(i+""+j);
     }
-    TEAMS.push(currentTeam);
   }  
 }
 
